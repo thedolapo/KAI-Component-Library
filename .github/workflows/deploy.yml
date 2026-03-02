@@ -1,26 +1,21 @@
-name: Deploy Storybook to GitHub Pages
+name: Publish to Chromatic
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  chromatic:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for Chromatic to detect changed stories
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -31,23 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Storybook
-        run: npm run build-storybook
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
         with:
-          path: storybook-static
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build-storybook
+          # Auto-accept new baselines on main — PRs still require review
+          autoAcceptChanges: "main"
+          exitOnceUploaded: true
