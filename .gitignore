@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+storybook-static/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Debug logs
+*.log
+debug-storybook.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude local config (keep .claude/launch.json if needed, ignore plans)
+.claude/plans/

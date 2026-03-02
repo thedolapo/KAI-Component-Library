@@ -1,0 +1,260 @@
+/* ════════════════════════════════════════════════════════════
+   TYPOGRAPHY PAGE STYLES
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Sections ──────────────────────────────────────────────── */
+
+.typo-section {
+  scroll-margin-top: 24px;
+}
+
+.typo-section-title {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.01em;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #ebebeb;
+}
+
+.typo-section-desc {
+  margin: 8px 0 20px 0;
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+}
+
+.typo-section-desc code {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  background: #f2f2f2;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #555;
+}
+
+/* ── Weight Switcher (display only) ────────────────────────── */
+
+.typo-weight-switcher {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 32px;
+  padding: 12px 14px;
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+}
+
+.typo-weight-switcher__label {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+/* ════════════════════════════════════════════════════════════
+   TYPE SCALE TABLE
+   ════════════════════════════════════════════════════════════ */
+
+.typo-scale-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.typo-scale-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f2f2f2;
+  transition: background 0.1s;
+}
+
+.typo-scale-row:last-child {
+  border-bottom: none;
+}
+
+.typo-scale-row:hover {
+  background: #faf8ff;
+}
+
+.typo-scale-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.typo-scale-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #333;
+}
+
+.typo-scale-token {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #bbb;
+}
+
+.typo-scale-size {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #888;
+}
+
+.typo-scale-rem {
+  color: #ccc;
+}
+
+.typo-scale-specimen {
+  font-family: '72', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #111;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ════════════════════════════════════════════════════════════
+   FONT WEIGHTS LIST
+   ════════════════════════════════════════════════════════════ */
+
+.typo-weights-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.typo-weight-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f2f2f2;
+  transition: background 0.1s;
+}
+
+.typo-weight-row:last-child {
+  border-bottom: none;
+}
+
+.typo-weight-row:hover {
+  background: #faf8ff;
+}
+
+.typo-weight-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.typo-weight-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #333;
+}
+
+.typo-weight-token {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #bbb;
+}
+
+.typo-weight-value {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #888;
+  background: none;
+  padding: 0;
+}
+
+.typo-weight-specimen {
+  font-family: '72', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  color: #111;
+  line-height: 1.3;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ════════════════════════════════════════════════════════════
+   PARAGRAPH SPECIMEN
+   ════════════════════════════════════════════════════════════ */
+
+.typo-specimen-block {
+  padding: 32px 36px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.typo-specimen-heading {
+  font-family: '72', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
+}
+
+.typo-specimen-body {
+  font-family: '72', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  margin: 0 0 20px 0;
+  line-height: 1.65;
+  max-width: 68ch;
+}
+
+.typo-specimen-small {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #bbb;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid #ebebeb;
+  letter-spacing: 0.03em;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .typo-scale-row,
+  .typo-weight-row {
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .typo-scale-row,
+  .typo-weight-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .typo-scale-specimen {
+    font-size: 80% !important;
+  }
+
+  .typo-specimen-block {
+    padding: 20px 16px;
+  }
+}
