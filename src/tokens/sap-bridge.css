@@ -1,0 +1,114 @@
+/**
+ * SAP → KAI CSS Variable Bridge
+ * ─────────────────────────────
+ * Maps SAP Fiori CSS variables (--sap*) to KAI design tokens (--kai-*).
+ * Import this file once in .storybook/preview.js to give all UI5 React
+ * components the KAI colour scheme and 72 typeface automatically.
+ *
+ * No per-theme overrides are needed here — the --kai-* variables already
+ * respond to the data-theme attribute (see src/tokens/colors.css).
+ *
+ * UI5 WebComponents React — Apache License 2.0
+ * https://github.com/SAP/ui5-webcomponents-react/blob/main/LICENSE.txt
+ *
+ * ~40 core mappings covering: brand, highlight, base, font, text, links,
+ * buttons, inputs, semantic status, shell, page layout, and charts.
+ */
+
+:root {
+  /* ── Brand & Core ─────────────────────────────────────────────────── */
+  --sapBrandColor:          var(--kai-main-sap-brand-color);
+  --sapHighlightColor:      var(--kai-main-sap-highlight-color);
+  --sapBaseColor:           var(--kai-main-sap-base-color);
+  --sapBackgroundColor:     var(--kai-application-sap-background-color);
+
+  /* ── Typography ───────────────────────────────────────────────────── */
+  --sapFontFamily:          '72', '72full', Arial, Helvetica, sans-serif;
+  --sapFontHeaderFamily:    '72', '72full', Arial, Helvetica, sans-serif;
+  --sapFontBoldFamily:      '72-Bold', '72full', Arial, Helvetica, sans-serif;
+  --sapFontLightFamily:     '72-Light', '72full', Arial, Helvetica, sans-serif;
+
+  /* ── Text ─────────────────────────────────────────────────────────── */
+  --sapTextColor:                    var(--kai-text-sap-text-color);
+  --sapTitleColor:                   var(--kai-text-sap-title-color);
+  --sapContent_LabelColor:           var(--kai-text-sap-content-label-color);
+  --sapContent_ForegroundTextColor:  var(--kai-text-sap-content-foreground-text-color);
+  --sapContent_DisabledTextColor:    var(--kai-text-sap-content-disabled-text-color);
+  --sapContent_ContrastTextColor:    var(--kai-text-sap-content-contrast-text-color);
+
+  /* ── Links ────────────────────────────────────────────────────────── */
+  --sapLinkColor:           var(--kai-link-sap-link-color);
+  --sapLink_Visited_Color:  var(--kai-link-sap-link-visited-color);
+  --sapLink_Active_Color:   var(--kai-link-sap-link-active-color);
+  --sapLink_Hover_Color:    var(--kai-link-sap-link-hover-color);
+
+  /* ── Buttons ──────────────────────────────────────────────────────── */
+  --sapButton_Background:                   var(--kai-button-standard-sap-button-background);
+  --sapButton_BorderColor:                  var(--kai-button-standard-sap-button-border-color);
+  --sapButton_TextColor:                    var(--kai-button-standard-sap-button-text-color);
+  --sapButton_Hover_Background:             var(--kai-button-standard-sap-button-hover-background);
+  --sapButton_Hover_BorderColor:            var(--kai-button-standard-sap-button-hover-border-color);
+  --sapButton_Active_Background:            var(--kai-button-standard-sap-button-active-background);
+  --sapButton_IconColor:                    var(--kai-button-standard-sap-button-icon-color);
+  --sapButton_Selected_Background:          var(--kai-button-standard-sap-button-selected-background);
+  --sapButton_Selected_TextColor:           var(--kai-button-standard-sap-button-selected-text-color);
+  --sapButton_Emphasized_Background:        var(--kai-button-emphasized-sap-button-emphasized-background);
+  --sapButton_Emphasized_BorderColor:       var(--kai-button-emphasized-sap-button-emphasized-border-color);
+  --sapButton_Emphasized_TextColor:         var(--kai-button-emphasized-sap-button-emphasized-text-color);
+  --sapButton_Emphasized_Hover_Background:  var(--kai-button-emphasized-sap-button-emphasized-hover-background);
+
+  /* ── Fields / Inputs ──────────────────────────────────────────────── */
+  --sapField_Background:           var(--kai-input-standard-sap-field-background);
+  --sapField_BorderColor:          var(--kai-input-standard-sap-field-border-color);
+  --sapField_TextColor:            var(--kai-input-standard-sap-field-text-color);
+  --sapField_PlaceholderTextColor: var(--kai-input-standard-sap-field-placeholder-text-color);
+  --sapField_Hover_Background:     var(--kai-input-standard-sap-field-hover-background);
+  --sapField_Hover_BorderColor:    var(--kai-input-standard-sap-field-hover-border-color);
+  --sapField_Active_BorderColor:   var(--kai-input-standard-sap-field-active-border-color);
+  --sapField_Focus_BorderColor:    var(--kai-input-standard-sap-field-focus-border-color);
+  --sapField_RequiredColor:        var(--kai-input-standard-sap-field-required-color);
+
+  /* ── Semantic Status ──────────────────────────────────────────────── */
+  --sapPositiveColor:    var(--kai-semantic-sap-positive-color);
+  --sapNegativeColor:    var(--kai-semantic-sap-negative-color);
+  --sapCriticalColor:    var(--kai-semantic-sap-critical-color);
+  --sapInformativeColor: var(--kai-semantic-sap-informative-color);
+  --sapNeutralColor:     var(--kai-semantic-sap-neutral-color);
+
+  /* ── Shell / Navigation ───────────────────────────────────────────── */
+  --sapShell_Background:  var(--kai-shell-sap-shell-background);
+  --sapShell_Color:       var(--kai-shell-sap-shell-color);
+  --sapShell_BorderColor: var(--kai-shell-sap-shell-border-color);
+
+  /* ── Page / Application ───────────────────────────────────────────── */
+  --sapPageHeader_Background:  var(--kai-application-sap-page-header-background);
+  --sapPageHeader_TextColor:   var(--kai-application-sap-page-header-text-color);
+  --sapPageHeader_BorderColor: var(--kai-application-sap-page-header-border-color);
+
+  /* ── Content / Layout ─────────────────────────────────────────────── */
+  --sapContent_ForegroundBorderColor: var(--kai-foreground-sap-content-foreground-border-color);
+  --sapContent_ForegroundColor:       var(--kai-foreground-sap-content-foreground-color);
+  --sapGroup_ContentBackground:       var(--kai-container-sap-group-content-background);
+  --sapGroup_ContentBorderColor:      var(--kai-container-sap-group-content-border-color);
+  --sapGroup_TitleBackground:         var(--kai-container-sap-group-title-background);
+  --sapGroup_TitleBorderColor:        var(--kai-container-sap-group-title-border-color);
+  --sapGroup_TitleTextColor:          var(--kai-container-sap-group-title-text-color);
+
+  /* ── Charts ───────────────────────────────────────────────────────── */
+  --sapChart_OrderedColor_1:  var(--kai-chart-ordered-sap-chart-ordered-color-1);
+  --sapChart_OrderedColor_2:  var(--kai-chart-ordered-sap-chart-ordered-color-2);
+  --sapChart_OrderedColor_3:  var(--kai-chart-ordered-sap-chart-ordered-color-3);
+  --sapChart_OrderedColor_4:  var(--kai-chart-ordered-sap-chart-ordered-color-4);
+  --sapChart_OrderedColor_5:  var(--kai-chart-ordered-sap-chart-ordered-color-5);
+  --sapChart_OrderedColor_6:  var(--kai-chart-ordered-sap-chart-ordered-color-6);
+  --sapChart_OrderedColor_7:  var(--kai-chart-ordered-sap-chart-ordered-color-7);
+  --sapChart_OrderedColor_8:  var(--kai-chart-ordered-sap-chart-ordered-color-8);
+  --sapChart_OrderedColor_9:  var(--kai-chart-ordered-sap-chart-ordered-color-9);
+  --sapChart_OrderedColor_10: var(--kai-chart-ordered-sap-chart-ordered-color-10);
+  --sapChart_OrderedColor_11: var(--kai-chart-ordered-sap-chart-ordered-color-11);
+  --sapChart_OrderedColor_12: var(--kai-chart-ordered-sap-chart-ordered-color-12);
+  --sapChart_Good:            var(--kai-chart-semantic-sap-chart-good);
+  --sapChart_Bad:             var(--kai-chart-semantic-sap-chart-bad);
+  --sapChart_Critical:        var(--kai-chart-semantic-sap-chart-critical);
+  --sapChart_Neutral:         var(--kai-chart-semantic-sap-chart-neutral);
+}

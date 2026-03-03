@@ -1,0 +1,132 @@
+/* ── Charts story layout ─────────────────────────────────────────────── */
+
+.charts-page {
+  font-family: '72', '72full', Arial, Helvetica, sans-serif;
+  background: var(--kai-application-sap-background-color, #f5f6f7);
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.charts-header {
+  margin-bottom: 2.5rem;
+}
+
+.charts-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--kai-text-sap-title-color, #1d2d3e);
+  margin: 0 0 0.5rem;
+}
+
+.charts-header p {
+  font-size: 0.9375rem;
+  color: var(--kai-text-sap-content-label-color, #556b82);
+  margin: 0 0 1.25rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* ── Mode pill switcher ───────────────────────────────────────────────── */
+
+.mode-switcher {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mode-pill {
+  padding: 0.3125rem 0.875rem;
+  border-radius: 1rem;
+  border: 1.5px solid var(--kai-foreground-sap-content-foreground-border-color, #8696a9);
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--kai-text-sap-text-color, #1d2d3e);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.mode-pill:hover {
+  border-color: var(--kai-main-sap-brand-color, #5f00ff);
+  color: var(--kai-main-sap-brand-color, #5f00ff);
+}
+
+.mode-pill.active {
+  background: var(--kai-main-sap-brand-color, #5f00ff);
+  border-color: var(--kai-main-sap-brand-color, #5f00ff);
+  color: #fff;
+}
+
+/* ── Chart grid ───────────────────────────────────────────────────────── */
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 2rem;
+}
+
+.chart-card {
+  background: var(--kai-container-sap-group-content-background, #fff);
+  border: 1px solid var(--kai-container-sap-group-content-border-color, #d9d9d9);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.chart-card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--kai-text-sap-title-color, #1d2d3e);
+  margin: 0 0 0.25rem;
+}
+
+.chart-card .chart-subtitle {
+  font-size: 0.8125rem;
+  color: var(--kai-text-sap-content-label-color, #556b82);
+  margin: 0 0 1.25rem;
+}
+
+/* ── Token legend ─────────────────────────────────────────────────────── */
+
+.token-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 1.25rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--kai-text-sap-content-label-color, #556b82);
+  font-family: 'Menlo', 'Consolas', monospace;
+}
+
+.legend-swatch {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* ── Attribution ──────────────────────────────────────────────────────── */
+
+.charts-attribution {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--kai-container-sap-group-content-border-color, #d9d9d9);
+  font-size: 0.75rem;
+  color: var(--kai-text-sap-content-label-color, #556b82);
+}
+
+.charts-attribution a {
+  color: var(--kai-link-sap-link-color, #5f00ff);
+  text-decoration: none;
+}
+
+.charts-attribution a:hover {
+  text-decoration: underline;
+}
