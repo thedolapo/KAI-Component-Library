@@ -1,78 +1,212 @@
-/**
- * UI5 Components/Form + Form Item
- * Figma: Form — node-id 237212:14308 | Form Item — node-id 158030:454
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Button,
+  CheckBox,
+  Form,
+  FormGroup,
+  FormItem,
+  Input,
+  Label,
+  Link,
+  Option,
+  Select,
+  Text,
+  TextArea
+} from '@ui5/webcomponents-react';
+import InputType from '@ui5/webcomponents/dist/types/InputType.js';
 
-import React from 'react';
-import { Form, FormGroup, FormItem, Label, Input, Select, Option, CheckBox } from '@ui5/webcomponents-react';
-
-const FIGMA_FORM =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=237212:14308';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/layouts-floorplans-form--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Form',
   component: Form,
+  argTypes: {
+    children: { control: { disable: true } },
+  },
+  args: {
+    headerText: 'Test Form',
+    layout: 'S1 M1 L2 XL2',
+    labelSpan: 'S12 M4 L4 XL4',
+  },
   parameters: {
-    layout: 'padded',
-    design: { type: 'figma', url: FIGMA_FORM },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=237212:14308',
+    },
     docs: {
       description: {
-        component:
-          'A structured form layout with labels and field pairs. Use `FormGroup` to segment related fields. ' +
-          'Each field is wrapped in `FormItem` (Klario: Form Item). ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/layouts-floorplans-form--default)',
       },
     },
   },
-  argTypes: {
-    columnsL: { control: { type: 'number', min: 1, max: 4 } },
-    columnsM: { control: { type: 'number', min: 1, max: 3 } },
-    columnsXL: { control: { type: 'number', min: 1, max: 6 } },
-  },
-  args: {
-    columnsL: 2,
-    columnsM: 1,
-    columnsXL: 3,
+};
+
+export default meta;
+
+export const Default = {
+  render: (props) => {
+    return (
+      <Form {...props}>
+        <FormGroup headerText="Personal Data">
+          <FormItem labelContent={<Label>Name</Label>}>
+            <Input type={InputType.Text} />
+          </FormItem>
+          <FormItem labelContent={<Label>Address</Label>}>
+            <Input type={InputType.Text} />
+          </FormItem>
+          <FormItem labelContent={<Label>Country</Label>}>
+            <Select>
+              <Option>Germany</Option>
+              <Option>France</Option>
+              <Option>Italy</Option>
+            </Select>
+          </FormItem>
+          <FormItem labelContent={<Label>Additional Comment</Label>} className="formAlignLabelStart">
+            <TextArea
+              rows={5}
+              placeholder="The label is aligned to start by setting `<class>::part(label){  align-self: start; }` "
+            />
+          </FormItem>
+          <FormItem labelContent={<Label>Home address</Label>}>
+            <CheckBox checked />
+          </FormItem>
+        </FormGroup>
+        <FormGroup headerText="Company Data">
+          <FormItem labelContent={<Label>Company Name</Label>}>
+            <Input type={InputType.Text} />
+          </FormItem>
+          <FormItem labelContent={<Label>Company Address</Label>}>
+            <Input type={InputType.Text} />
+          </FormItem>
+          <FormItem labelContent={<Label>Company City</Label>}>
+            <Input type={InputType.Text} />
+          </FormItem>
+          <FormItem labelContent={<Label>Company Country</Label>}>
+            <Input type={InputType.Text} />
+          </FormItem>
+          <FormItem labelContent={<Label>Number of Employees</Label>}>
+            <Input type={InputType.Number} value="5000" disabled />
+          </FormItem>
+          <FormItem labelContent={<Label>Member of Partner Network</Label>}>
+            <CheckBox checked />
+          </FormItem>
+        </FormGroup>
+        <FormGroup headerText="Marketing Data">
+          <FormItem labelContent={<Label>Email</Label>}>
+            <Input type={InputType.Email} />
+          </FormItem>
+          <FormItem labelContent={<Label>Company Email</Label>}>
+            <Input type={InputType.Email} />
+          </FormItem>
+          <FormItem labelContent={<Label>I want to receive the newsletter</Label>}>
+            <CheckBox />
+          </FormItem>
+        </FormGroup>
+      </Form>
+    );
   },
 };
 
-export const Default = {
-  render: (args) => (
-    <Form
-      {...args}
-      titleText="Personal Details"
-      style={{ maxWidth: 720 }}
-    >
-      <FormGroup titleText="Contact Information">
-        <FormItem label={<Label required>First Name</Label>}>
-          <Input placeholder="Enter first name" required />
-        </FormItem>
-        <FormItem label={<Label required>Last Name</Label>}>
-          <Input placeholder="Enter last name" required />
-        </FormItem>
-        <FormItem label={<Label>Email Address</Label>}>
-          <Input placeholder="name@company.com" type="Email" />
-        </FormItem>
-        <FormItem label={<Label>Phone</Label>}>
-          <Input placeholder="+1 000 000 0000" type="Tel" />
-        </FormItem>
-      </FormGroup>
+const StandardField = ({ editMode, value, inputType = InputType.Text, onInput, ...rest }) => {
+  if (editMode) {
+    return <Input value={value} type={inputType} onInput={onInput} {...rest} />;
+  }
+  if (inputType === InputType.URL || inputType === InputType.Email) {
+    return (
+      <Link href={inputType === InputType.Email ? `mailto:${value}` : value} target="_blank" {...rest}>
+        {value}
+      </Link>
+    );
+  }
+  return <Text {...rest}>{value}</Text>;
+};
 
-      <FormGroup titleText="Preferences">
-        <FormItem label={<Label>Department</Label>}>
-          <Select style={{ width: '100%' }}>
-            <Option>Design</Option>
-            <Option>Engineering</Option>
-            <Option>Product</Option>
-            <Option>Marketing</Option>
-          </Select>
-        </FormItem>
-        <FormItem label={<Label>Newsletter</Label>}>
-          <CheckBox text="Subscribe to product updates" />
-        </FormItem>
-      </FormGroup>
-    </Form>
-  ),
+const reducer = (state, { field, value }) => {
+  return { ...state, [field]: value };
+};
+
+export const DisplayEditMode = {
+  name: 'Display & Edit mode',
+  args: { headerText: 'Supplier' },
+  render: (args) => {
+    const [editMode, toggleEditMode] = useReducer((prev) => !prev, false, undefined);
+    const [formState, dispatch] = useReducer(
+      reducer,
+      {
+        name: 'Red Point Stores',
+        street: 'Main St 1618',
+        zip: 31415,
+        city: 'Maintown',
+        country: 'Germany',
+        web: 'https://www.sap.com',
+        mail: 'john.smith@sap.com',
+        twitter: '@sap',
+        phone: '+49 1234 56789',
+      },
+      undefined,
+    );
+    const { zip, city, name, street, country, web, mail, twitter, phone } = formState;
+
+    const handleInput = (e) => {
+      dispatch({ field: Object.keys(e.target.dataset)[0], value: e.target.value });
+    };
+
+    return (
+      <>
+        <Button onClick={toggleEditMode}>Toggle {editMode ? 'Display-Only Mode' : 'Edit Mode'}</Button>
+        <Form
+          {...args}
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <FormGroup headerText="Address">
+            <FormItem labelContent={<Label>Name</Label>}>
+              <StandardField editMode={editMode} value={name} onInput={handleInput} data-name />
+            </FormItem>
+            <FormItem labelContent={<Label>Street</Label>}>
+              <StandardField editMode={editMode} value={street} onInput={handleInput} data-street />
+            </FormItem>
+            <FormItem labelContent={<Label>ZIP Code / City</Label>}>
+              {editMode ? (
+                <>
+                  <Input value={zip} type={InputType.Number} onInput={handleInput} data-zip />
+                  <Input value={city} onInput={handleInput} data-city />
+                </>
+              ) : (
+                <Text>{`${zip} ${city}`}</Text>
+              )}
+            </FormItem>
+            <FormItem labelContent={<Label>Country</Label>}>
+              <StandardField editMode={editMode} value={country} onInput={handleInput} data-country />
+            </FormItem>
+            <FormItem labelContent={<Label>Web</Label>}>
+              <StandardField editMode={editMode} value={web} inputType={InputType.URL} onInput={handleInput} data-web />
+            </FormItem>
+          </FormGroup>
+          <FormGroup headerText="Contact">
+            <FormItem labelContent={<Label>Email</Label>}>
+              <StandardField
+                editMode={editMode}
+                value={mail}
+                inputType={InputType.Email}
+                onInput={handleInput}
+                data-email
+              />
+            </FormItem>
+            <FormItem labelContent={<Label>Twitter</Label>}>
+              <StandardField editMode={editMode} value={twitter} onInput={handleInput} data-twitter />
+            </FormItem>
+            <FormItem labelContent={<Label>Phone</Label>}>
+              <StandardField
+                editMode={editMode}
+                value={phone}
+                inputType={InputType.Tel}
+                onInput={handleInput}
+                data-phone
+              />
+            </FormItem>
+          </FormGroup>
+        </Form>
+      </>
+    );
+  },
 };

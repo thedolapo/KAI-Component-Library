@@ -1,60 +1,41 @@
-/**
- * UI5 Components/Message Strip
- * Figma: Message Strip — node-id 278668:35
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Icon,
+  MessageStrip
+} from '@ui5/webcomponents-react';
+import MessageStripDesign from '@ui5/webcomponents/dist/types/MessageStripDesign.js';
+import employeeIcon from '@ui5/webcomponents-icons/dist/employee.js';
 
-import React from 'react';
-import { MessageStrip } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=278668:35';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/ui-elements-messagestrip--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Message Strip',
   component: MessageStrip,
+  argTypes: {
+    children: { control: 'text' },
+    icon: { control: { disable: true } },
+  },
+  args: {
+    design: MessageStripDesign.Information,
+    children: 'MessageStrip Text',
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=278668:35',
+    },
     docs: {
       description: {
-        component:
-          'An inline notification strip for contextual messages. Supports Information, Positive, Negative, and Warning types. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/ui-elements-messagestrip--default)',
       },
     },
   },
-  argTypes: {
-    design: {
-      control: { type: 'select' },
-      options: ['Information', 'Positive', 'Negative', 'Warning', 'ColorSet1', 'ColorSet2'],
-    },
-    children: { control: 'text' },
-    hideCloseButton: { control: 'boolean' },
-    hideIcon: { control: 'boolean' },
-  },
+};
+
+export default meta;
+
+export const Default = {};
+
+export const WithIcon = {
   args: {
-    design: 'Information',
-    children: 'This is an informational message.',
-    hideCloseButton: false,
-    hideIcon: false,
+    icon: <Icon name={employeeIcon} />,
   },
-};
-
-export const Default = {
-  render: (args) => <MessageStrip {...args} style={{ width: 400 }} />,
-};
-
-export const AllTypes = {
-  name: 'All Types',
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: 400 }}>
-      {['Information', 'Positive', 'Negative', 'Warning'].map((d) => (
-        <MessageStrip key={d} design={d}>
-          {d} message — action completed or attention required.
-        </MessageStrip>
-      ))}
-    </div>
-  ),
 };

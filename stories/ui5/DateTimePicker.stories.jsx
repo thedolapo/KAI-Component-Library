@@ -1,46 +1,38 @@
-/**
- * UI5 Components/Date Time Picker
- * Figma: Date Time Picker — node-id 194619:6583
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  DateTimePicker
+} from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-localization/dist/features/calendar/Gregorian.js';
+import '@ui5/webcomponents-localization/dist/features/calendar/Buddhist.js';
+import '@ui5/webcomponents-localization/dist/features/calendar/Islamic.js';
+import '@ui5/webcomponents-localization/dist/features/calendar/Japanese.js';
+import '@ui5/webcomponents-localization/dist/features/calendar/Persian.js';
+import CalendarType from '@ui5/webcomponents-base/dist/types/CalendarType.js';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 
-import React from 'react';
-import { DateTimePicker } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=194619:6583';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-datetimepicker--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Date Time Picker',
   component: DateTimePicker,
+  argTypes: {
+    valueStateMessage: { control: { disable: true } },
+  },
+  args: {
+    primaryCalendarType: CalendarType.Gregorian,
+    valueState: ValueState.None,
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=194619:6583',
+    },
     docs: {
       description: {
-        component:
-          'An input field that opens a combined calendar + clock picker for selecting date and time. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-datetimepicker--default)',
       },
     },
   },
-  argTypes: {
-    placeholder: { control: 'text' },
-    valueState: {
-      control: { type: 'select' },
-      options: ['None', 'Error', 'Warning', 'Success', 'Information'],
-    },
-    disabled: { control: 'boolean' },
-    readonly: { control: 'boolean' },
-  },
-  args: {
-    placeholder: 'Select date and time',
-    valueState: 'None',
-    disabled: false,
-  },
 };
 
-export const Default = {
-  render: (args) => <DateTimePicker {...args} style={{ width: 300 }} />,
-};
+export default meta;
+
+export const Default = {};

@@ -1,72 +1,48 @@
-/**
- * UI5 Components/Check Box
- * Figma: Check Box — node-id 154589:1148
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  CheckBox
+} from '@ui5/webcomponents-react';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 
-import React from 'react';
-import { CheckBox } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=154589:1148';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-checkbox--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Check Box',
   component: CheckBox,
+  argTypes: {},
+  args: {
+    valueState: ValueState.None,
+    text: 'CheckBox',
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=154589:1148',
+    },
     docs: {
       description: {
-        component:
-          'A checkbox input allowing single or multiple selections. Supports indeterminate state. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-checkbox--default)',
       },
     },
   },
-  argTypes: {
-    text: { control: 'text' },
-    checked: { control: 'boolean' },
-    indeterminate: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    valueState: {
-      control: { type: 'select' },
-      options: ['None', 'Error', 'Warning', 'Success', 'Information'],
-    },
+};
+
+export default meta;
+
+export const Default = {};
+
+export const CheckBoxStates = {
+  name: 'CheckBox States',
+  render() {
+    return (
+      <>
+        <CheckBox text="Error" valueState={ValueState.Negative} />
+        <CheckBox text="Warning" valueState={ValueState.Critical} />
+        <CheckBox text="Disabled" disabled checked />
+        <CheckBox text="Readonly" readonly checked />
+        <CheckBox text="Error disabled" disabled valueState={ValueState.Negative} checked />
+        <CheckBox text="Warning disabled " disabled valueState={ValueState.Critical} checked />
+        <CheckBox text="Error readonly" readonly valueState={ValueState.Negative} checked />
+        <CheckBox text="Warning readonly" readonly valueState={ValueState.Critical} checked />
+      </>
+    );
   },
-  args: {
-    text: 'Accept terms and conditions',
-    checked: false,
-    indeterminate: false,
-    disabled: false,
-    valueState: 'None',
-  },
-};
-
-export const Default = {
-  render: (args) => <CheckBox {...args} />,
-};
-
-export const Checked = {
-  args: { checked: true, text: 'Selected option' },
-  render: (args) => <CheckBox {...args} />,
-};
-
-export const Indeterminate = {
-  args: { indeterminate: true, text: 'Select all (partial)' },
-  render: (args) => <CheckBox {...args} />,
-};
-
-export const States = {
-  name: 'All States',
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <CheckBox text="Default" />
-      <CheckBox text="Checked" checked />
-      <CheckBox text="Indeterminate" indeterminate />
-      <CheckBox text="Disabled" disabled />
-      <CheckBox text="Error state" valueState="Error" />
-    </div>
-  ),
 };

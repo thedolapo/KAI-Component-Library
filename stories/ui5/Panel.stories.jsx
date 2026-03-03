@@ -1,59 +1,86 @@
-/**
- * UI5 Components/Panel
- * Figma: Panel — node-id 24070:10554
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Button,
+  FlexBox,
+  FlexBoxAlignItems,
+  List,
+  ListItemStandard,
+  Panel,
+  Text,
+  Title
+} from '@ui5/webcomponents-react';
+import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';
+import TitleLevel from '@ui5/webcomponents/dist/types/TitleLevel.js';
 
-import React from 'react';
-import { Panel, Text } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=24070:10554';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/layouts-floorplans-panel--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Panel',
   component: Panel,
+  argTypes: {
+    children: { control: { disable: true } },
+    header: { control: { disable: true } },
+  },
+  args: {
+    headerText: 'Panel',
+  },
   parameters: {
-    layout: 'padded',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=24070:10554',
+    },
     docs: {
       description: {
-        component:
-          'A collapsible container with a header. Groups related content in an expandable section. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/layouts-floorplans-panel--default)',
       },
     },
   },
-  argTypes: {
-    headerText: { control: 'text' },
-    collapsed: { control: 'boolean' },
-    fixed: { control: 'boolean' },
-  },
-  args: {
-    headerText: 'Filter Options',
-    collapsed: false,
-    fixed: false,
-  },
 };
+
+export default meta;
 
 export const Default = {
-  render: (args) => (
-    <Panel {...args} style={{ width: 480 }}>
-      <div style={{ padding: '1rem', fontFamily: '\'72\', Arial, sans-serif' }}>
-        <Text>Panel content goes here. This panel is expandable/collapsible by clicking the header.</Text>
-      </div>
-    </Panel>
-  ),
+  render(args) {
+    return (
+      <Panel {...args}>
+        <Title level={TitleLevel.H3}>Basic Panel</Title>
+        <Text>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+          clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+          consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+          takimata sanctus est Lorem ipsum dolor sit amet.
+        </Text>
+      </Panel>
+    );
+  },
 };
 
-export const Collapsed = {
-  args: { collapsed: true, headerText: 'Advanced Filters (collapsed)' },
-  render: (args) => (
-    <Panel {...args} style={{ width: 480 }}>
-      <div style={{ padding: '1rem', fontFamily: '\'72\', Arial, sans-serif' }}>
-        <Text>This content is hidden when the panel is collapsed.</Text>
-      </div>
-    </Panel>
-  ),
+export const WithCustomHeader = {
+  args: {
+    collapsed: true,
+    header: (
+      <FlexBox fitContainer style={{ gap: '0.25rem' }} alignItems={FlexBoxAlignItems.Center}>
+        <Title level={TitleLevel.H2}>Countries</Title>
+        <span style={{ flexGrow: 1 }} />
+        <Button>Edit</Button>
+        <Button design={ButtonDesign.Negative}>Remove</Button>
+        <Button design={ButtonDesign.Emphasized}>Add</Button>
+      </FlexBox>
+    ),
+  },
+  render(args) {
+    return (
+      <Panel {...args}>
+        <List>
+          <ListItemStandard description="Language: Spanish" text="Argentina" />
+          <ListItemStandard description="Language: Portuguese" text="Portugal" />
+          <ListItemStandard description="Language: Spanish" text="Mexico" />
+          <ListItemStandard description="Language: Portuguese" text="Brazil" />
+          <ListItemStandard description="Language: German" text="Germany" />
+          <ListItemStandard description="Language: English" text="Australia" />
+          <ListItemStandard description="Language: German" text="Austria" />
+        </List>
+      </Panel>
+    );
+  },
 };

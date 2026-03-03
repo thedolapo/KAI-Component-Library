@@ -1,63 +1,88 @@
-/**
- * UI5 Components/Dialog
- * Figma: Dialog — node-id 1101:2509
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Bar,
+  Button,
+  Dialog,
+  List,
+  ListItemStandard
+} from '@ui5/webcomponents-react';
+const isChromatic = false;
 
-import React, { useRef } from 'react';
-import { Dialog, Button, Bar } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=1101:2509';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/modals-overlays-dialog--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Dialog',
   component: Dialog,
+  argTypes: {
+    footer: { control: { disable: true } },
+    header: { control: { disable: true } },
+    children: { control: { disable: true } },
+  },
+  args: {
+    children: (
+      <List>
+        <ListItemStandard additionalText="Fruits" text="Apples" />
+        <ListItemStandard additionalText="Fruits" text="Bananas" />
+        <ListItemStandard additionalText="Vegetables" text="Potato" />
+      </List>
+    ),
+    headerText: 'Dialog Header',
+    open: isChromatic,
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=1101:2509',
+    },
     docs: {
       description: {
-        component:
-          'A modal dialog that blocks interaction with the rest of the page. Supports header, content, and footer slots. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/modals-overlays-dialog--default)',
       },
     },
   },
 };
 
-function DialogDemo() {
-  const dialogRef = useRef(null);
-  return (
-    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-      <Button design="Emphasized" onClick={() => dialogRef.current?.show()}>
-        Open Dialog
-      </Button>
-      <Dialog
-        ref={dialogRef}
-        headerText="Confirm Action"
-        footer={
-          <Bar
-            endContent={
-              <>
-                <Button design="Emphasized" onClick={() => dialogRef.current?.close()}>
-                  Confirm
-                </Button>
-                <Button onClick={() => dialogRef.current?.close()}>Cancel</Button>
-              </>
-            }
-          />
-        }
-      >
-        <div style={{ padding: '1rem', fontFamily: '\'72\', Arial, sans-serif' }}>
-          Are you sure you want to proceed with this action? This cannot be undone.
-        </div>
-      </Dialog>
-    </div>
-  );
-}
+export default meta;
 
 export const Default = {
-  render: () => <DialogDemo />,
+  render: (args) => {
+    const [dialogOpen, setDialogOpen] = useState(args.open);
+    useEffect(() => {
+      setDialogOpen(args.open);
+    }, [args.open]);
+    return (
+      <>
+        <Button
+          onClick={() => {
+            setDialogOpen(true);
+          }}
+        >
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          data-sap-ui-fastnavgroup="true"
+          className="contentPartNoPadding footerPartNoPadding"
+          open={dialogOpen}
+          onClose={(e) => {
+            args.onClose(e);
+            setDialogOpen(false);
+          }}
+          footer={
+            <Bar
+              design="Footer"
+              endContent={
+                <Button
+                  data-sap-ui-fastnavgroup="true"
+                  onClick={() => {
+                    setDialogOpen(false);
+                  }}
+                >
+                  Close
+                </Button>
+              }
+            />
+          }
+        />
+      </>
+    );
+  },
 };

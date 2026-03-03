@@ -1,69 +1,84 @@
-/**
- * UI5 Components/Avatar
- * Figma: Avatar — node-id 573:3809
- * https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=573:3809
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Avatar,
+  AvatarBadge
+} from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/employee.js';
+import alertIcon from '@ui5/webcomponents-icons/dist/alert.js';
+import editIcon from '@ui5/webcomponents-icons/dist/edit.js';
+import errorIcon from '@ui5/webcomponents-icons/dist/error.js';
+import sysEnter2Icon from '@ui5/webcomponents-icons/dist/sys-enter-2.js';
 
-import React from 'react';
-import { Avatar } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=573:3809';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/data-display-avatar--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Avatar',
   component: Avatar,
+  argTypes: {
+    children: { control: { disable: true } },
+    badge: { control: { disable: true } },
+  },
+  args: {
+    icon: 'employee',
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=573:3809',
+    },
     docs: {
       description: {
-        component:
-          'Displays a user avatar with an image, initials, or icon. ' +
-          'Supports multiple sizes and shapes. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/data-display-avatar--default)',
       },
     },
   },
-  argTypes: {
-    size: {
-      control: { type: 'select' },
-      options: ['XS', 'S', 'M', 'L', 'XL'],
-    },
-    shape: {
-      control: { type: 'select' },
-      options: ['Circle', 'Square'],
-    },
-    initials: { control: 'text' },
-    icon: { control: 'text' },
-  },
+};
+
+export default meta;
+
+export const Default = {};
+
+export const WithImage = {
   args: {
-    size: 'M',
-    shape: 'Circle',
-    initials: 'KA',
+    fallbackIcon: 'employee',
+    icon: undefined,
   },
+  render: (args) => (
+    <Avatar {...args}>
+      <img alt="Person" src="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_1.png" />
+    </Avatar>
+  ),
 };
 
-export const WithInitials = {
-  name: 'With Initials',
-  render: (args) => <Avatar {...args} />,
-};
-
-export const WithIcon = {
-  name: 'With Icon',
-  args: { icon: 'person-placeholder', initials: '' },
-  render: (args) => <Avatar {...args} />,
-};
-
-export const Sizes = {
-  name: 'All Sizes',
-  render: () => (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-      {['XS', 'S', 'M', 'L', 'XL'].map((s) => (
-        <Avatar key={s} size={s} initials="KA" />
-      ))}
+export const WithBadge = {
+  render: (args) => (
+    <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem' }}>
+      <Avatar {...args} initials="JD" colorScheme="Accent5" badge={<AvatarBadge icon={editIcon} state="None" />} />
+      <Avatar
+        {...args}
+        icon="employee"
+        colorScheme="Accent10"
+        badge={<AvatarBadge icon={alertIcon} state="Critical" />}
+      />
+      <Avatar {...args} badge={<AvatarBadge icon={sysEnter2Icon} state="Positive" />}>
+        <img src="https://ui5.github.io/webcomponents/images/avatars/man_avatar_1.png" alt="Person" />
+      </Avatar>
+      <Avatar {...args} shape="Square" badge={<AvatarBadge icon={errorIcon} state="Negative" />}>
+        <img src="https://ui5.github.io/webcomponents/images/avatars/woman_avatar_5.png" alt="Person" />
+      </Avatar>
     </div>
+  ),
+};
+
+export const CustomStyling = {
+  args: {
+    style: { width: '250px', height: '250px', border: '1px solid var(--sapField_BorderColor)' },
+  },
+  render: (args) => (
+    <Avatar {...args}>
+      <img
+        src="https://ui5.github.io/webcomponents/images/avatars/Lamp_avatar_01.jpg"
+        alt="Lamp"
+        style={{ objectFit: 'contain' }}
+      />
+    </Avatar>
   ),
 };

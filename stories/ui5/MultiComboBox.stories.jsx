@@ -1,71 +1,74 @@
-/**
- * UI5 Components/Multi Combobox
- * Figma: Multi Combobox — node-id 212722:56342
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  MultiComboBox,
+  MultiComboBoxItem,
+  MultiComboBoxItemGroup
+} from '@ui5/webcomponents-react';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 
-import React from 'react';
-import { MultiComboBox, MultiComboBoxItem } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=212722:56342';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-multicombobox--default';
-
-const skills = [
-  'Design Systems', 'Figma', 'React', 'TypeScript', 'CSS', 'Accessibility',
-  'User Research', 'Prototyping', 'Storybook', 'Animation',
-];
-
-export default {
-  title: 'UI5 Components/Multi Combobox',
+const meta = {
+  title: 'UI5 Components/Multi Combo Box',
   component: MultiComboBox,
+  argTypes: {
+    children: { control: { disable: true } },
+    icon: { control: { disable: true } },
+    valueStateMessage: { control: { disable: true } },
+  },
+  args: {
+    valueState: ValueState.None,
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=212722:56342',
+    },
     docs: {
       description: {
-        component:
-          'A multi-select combobox that allows selecting multiple items and shows them as tokens. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-multicombobox--default)',
       },
     },
   },
-  argTypes: {
-    placeholder: { control: 'text' },
-    disabled: { control: 'boolean' },
-    valueState: {
-      control: { type: 'select' },
-      options: ['None', 'Error', 'Warning', 'Success', 'Information'],
-    },
-  },
-  args: {
-    placeholder: 'Select skills',
-    disabled: false,
-    valueState: 'None',
-  },
 };
+
+export default meta;
 
 export const Default = {
-  render: (args) => (
-    <MultiComboBox {...args} style={{ width: 360 }}>
-      {skills.map((s) => (
-        <MultiComboBoxItem key={s} text={s} />
-      ))}
-    </MultiComboBox>
-  ),
+  render: (args) => {
+    return (
+      <MultiComboBox {...args}>
+        <MultiComboBoxItem text="Item 1" />
+        <MultiComboBoxItem text="Item 2" />
+        <MultiComboBoxItem text="Item 3" />
+        <MultiComboBoxItem text="Item 4" />
+        <MultiComboBoxItem text="Item 5" />
+      </MultiComboBox>
+    );
+  },
 };
 
-export const WithPreSelected = {
-  name: 'With Pre-selected Items',
-  render: (args) => (
-    <MultiComboBox {...args} style={{ width: 360 }}>
-      {skills.map((s) => (
-        <MultiComboBoxItem
-          key={s}
-          text={s}
-          selected={['Design Systems', 'Figma', 'React'].includes(s)}
-        />
-      ))}
-    </MultiComboBox>
-  ),
+export const Grouping = {
+  render: (args) => {
+    return (
+      <MultiComboBox {...args}>
+        <MultiComboBoxItemGroup headerText="Asia">
+          <MultiComboBoxItem text="Afghanistan"></MultiComboBoxItem>
+          <MultiComboBoxItem text="China"></MultiComboBoxItem>
+          <MultiComboBoxItem text="India"></MultiComboBoxItem>
+          <MultiComboBoxItem text="Indonesia"></MultiComboBoxItem>
+        </MultiComboBoxItemGroup>
+        <MultiComboBoxItemGroup headerText="Europe">
+          <MultiComboBoxItem text="Austria"></MultiComboBoxItem>
+          <MultiComboBoxItem text="Bulgaria"></MultiComboBoxItem>
+          <MultiComboBoxItem text="Germany"></MultiComboBoxItem>
+          <MultiComboBoxItem text="Italy"></MultiComboBoxItem>
+        </MultiComboBoxItemGroup>
+        <MultiComboBoxItemGroup headerText="North America">
+          <MultiComboBoxItem text="Canada"></MultiComboBoxItem>
+          <MultiComboBoxItem text="Granada"></MultiComboBoxItem>
+          <MultiComboBoxItem text="Haiti"></MultiComboBoxItem>
+          <MultiComboBoxItem text="United States"></MultiComboBoxItem>
+        </MultiComboBoxItemGroup>
+      </MultiComboBox>
+    );
+  },
 };

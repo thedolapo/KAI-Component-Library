@@ -41,6 +41,14 @@ const preview = {
         date:  /Date$/i,
       },
     },
+    a11y: {
+      config: {
+        rules: [
+          // UI5 web components use shadow DOM — axe-core cannot inspect slots directly
+          { id: 'color-contrast', enabled: false },
+        ],
+      },
+    },
   },
 };
 

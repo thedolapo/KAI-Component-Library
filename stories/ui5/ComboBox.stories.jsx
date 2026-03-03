@@ -1,68 +1,111 @@
-/**
- * UI5 Components/Drop-Down (ComboBox)
- * Figma: Drop-Down — node-id 182813:5889
- * Also covers: Drop-Down Item (ComboBoxItem)
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  ComboBox,
+  ComboBoxItem,
+  ComboBoxItemGroup,
+  FlexBox,
+  FlexBoxDirection,
+  FlexBoxJustifyContent,
+  Icon,
+  Label
+} from '@ui5/webcomponents-react';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
+import employeeIcon from '@ui5/webcomponents-icons/dist/employee.js';
 
-import React from 'react';
-import { ComboBox, ComboBoxItem } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=182813:5889';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-combobox--default';
-
-const countries = ['Germany', 'France', 'United Kingdom', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway'];
-
-export default {
-  title: 'UI5 Components/Drop-Down (ComboBox)',
+const meta = {
+  title: 'UI5 Components/Combo Box',
   component: ComboBox,
-  parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
-    docs: {
-      description: {
-        component:
-          'An editable dropdown that combines a text input with a suggestions list. ' +
-          'Maps to the Klario "Drop-Down" component. Child items are `ComboBoxItem` (Klario: Drop-Down Item). ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
-      },
-    },
-  },
   argTypes: {
-    placeholder: { control: 'text' },
-    valueState: {
-      control: { type: 'select' },
-      options: ['None', 'Error', 'Warning', 'Success', 'Information'],
-    },
-    disabled: { control: 'boolean' },
-    readonly: { control: 'boolean' },
+    children: { control: { disable: true } },
+    icon: { control: { disable: true } },
+    valueStateMessage: { control: { disable: true } },
   },
   args: {
-    placeholder: 'Select a country',
-    valueState: 'None',
-    disabled: false,
+    valueState: ValueState.None,
+    icon: <Icon name={employeeIcon} />,
   },
 };
 
+// TODO: check why ComboBoxItemGroup is now showing up in subcomponents table in docs
+
+export default meta;
+
 export const Default = {
-  render: (args) => (
-    <ComboBox {...args} style={{ width: 280 }}>
-      {countries.map((c) => (
-        <ComboBoxItem key={c} text={c} />
-      ))}
-    </ComboBox>
-  ),
+  render: (args) => {
+    return (
+      <ComboBox {...args}>
+        <ComboBoxItem text="ComboBox Entry 1" />
+        <ComboBoxItem text="ComboBox Entry 2" />
+        <ComboBoxItem text="ComboBox Entry 3" />
+        <ComboBoxItem text="ComboBox Entry 4" />
+        <ComboBoxItem text="ComboBox Entry 5" />
+      </ComboBox>
+    );
+  },
 };
 
-export const WithInitialValue = {
-  name: 'With Initial Value',
-  args: { value: 'Germany' },
-  render: (args) => (
-    <ComboBox {...args} style={{ width: 280 }}>
-      {countries.map((c) => (
-        <ComboBoxItem key={c} text={c} />
-      ))}
-    </ComboBox>
-  ),
+export const WithGroups = {
+  render(args) {
+    return (
+      <ComboBox {...args}>
+        <ComboBoxItemGroup headerText="Group 1">
+          <ComboBoxItem text="ComboBox Entry 1" />
+          <ComboBoxItem text="ComboBox Entry 2" />
+        </ComboBoxItemGroup>
+        <ComboBoxItemGroup headerText="Group 2">
+          <ComboBoxItem text="ComboBox Entry 3" />
+          <ComboBoxItem text="ComboBox Entry 4" />
+          <ComboBoxItem text="ComboBox Entry 5" />
+        </ComboBoxItemGroup>
+      </ComboBox>
+    );
+  },
+};
+
+export const FilterTypes = {
+  render: () => {
+    return (
+      <FlexBox justifyContent={FlexBoxJustifyContent.SpaceBetween}>
+        <FlexBox direction={FlexBoxDirection.Column}>
+          <Label>StartsWithPerTerm (Default)</Label>
+          <ComboBox filter="StartsWithPerTerm">
+            <ComboBoxItem text="Austria" />
+            <ComboBoxItem text="United Arab Emirates" />
+            <ComboBoxItem text="Czech Republic" />
+            <ComboBoxItem text="United Kingdom" />
+            <ComboBoxItem text="China" />
+            <ComboBoxItem text="Ukraine" />
+            <ComboBoxItem text="Australia" />
+            <ComboBoxItem text="Russia" />
+          </ComboBox>
+        </FlexBox>
+        <FlexBox direction={FlexBoxDirection.Column}>
+          <Label>StartsWith</Label>
+          <ComboBox filter="StartsWith">
+            <ComboBoxItem text="Austria" />
+            <ComboBoxItem text="United Arab Emirates" />
+            <ComboBoxItem text="Czech Republic" />
+            <ComboBoxItem text="United Kingdom" />
+            <ComboBoxItem text="China" />
+            <ComboBoxItem text="Ukraine" />
+            <ComboBoxItem text="Australia" />
+            <ComboBoxItem text="Russia" />
+          </ComboBox>
+        </FlexBox>
+        <FlexBox direction={FlexBoxDirection.Column}>
+          <Label>Contains</Label>
+          <ComboBox filter="Contains">
+            <ComboBoxItem text="Austria" />
+            <ComboBoxItem text="United Arab Emirates" />
+            <ComboBoxItem text="Czech Republic" />
+            <ComboBoxItem text="United Kingdom" />
+            <ComboBoxItem text="China" />
+            <ComboBoxItem text="Ukraine" />
+            <ComboBoxItem text="Australia" />
+            <ComboBoxItem text="Russia" />
+          </ComboBox>
+        </FlexBox>
+      </FlexBox>
+    );
+  },
 };

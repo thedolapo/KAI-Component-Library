@@ -1,84 +1,65 @@
-/**
- * UI5 Components/Input
- * Figma: Input — node-id 148569:1061
- */
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Icon,
+  Input,
+  SuggestionItem,
+  SuggestionItemGroup
+} from '@ui5/webcomponents-react';
+import InputType from '@ui5/webcomponents/dist/types/InputType.js';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
+import employeeIcon from '@ui5/webcomponents-icons/dist/employee.js';
 
-import React from 'react';
-import { Input, Label, Icon } from '@ui5/webcomponents-react';
-
-const FIGMA_URL =
-  'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=148569:1061';
-const UI5_DOCS =
-  'https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-input--default';
-
-export default {
+const meta = {
   title: 'UI5 Components/Input',
   component: Input,
+  argTypes: {
+    children: { control: { disable: true } },
+    icon: { control: { disable: true } },
+    valueStateMessage: { control: { disable: true } },
+  },
+  args: {
+    type: InputType.Text,
+    valueState: ValueState.None,
+    icon: <Icon name={employeeIcon} />,
+  },
   parameters: {
-    layout: 'centered',
-    design: { type: 'figma', url: FIGMA_URL },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/rur6NyDAfn3XII6DF4PD8n/Klario-SAP-Fiori-for-Web-UI-Kit?node-id=148569:1061',
+    },
     docs: {
       description: {
-        component:
-          'A text input field with optional icon, suggestions, and value states. ' +
-          '[→ UI5 React docs](' + UI5_DOCS + ')',
+        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/inputs-input--default)',
       },
     },
   },
-  argTypes: {
-    placeholder: { control: 'text' },
-    value: { control: 'text' },
-    type: {
-      control: { type: 'select' },
-      options: ['Text', 'Email', 'Number', 'Password', 'Search', 'Tel', 'URL'],
-    },
-    valueState: {
-      control: { type: 'select' },
-      options: ['None', 'Error', 'Warning', 'Success', 'Information'],
-    },
-    disabled: { control: 'boolean' },
-    readonly: { control: 'boolean' },
-    required: { control: 'boolean' },
-  },
+};
+
+export default meta;
+
+export const Default = {};
+
+export const WithSuggestionItem = {
+  name: 'with SuggestionItem',
   args: {
-    placeholder: 'Enter text',
-    type: 'Text',
-    valueState: 'None',
-    disabled: false,
-    readonly: false,
-    required: false,
+    showSuggestions: true,
+    placeholder: 'type anything to show suggestions',
+    icon: null,
   },
-};
-
-export const Default = {
-  render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', alignItems: 'flex-start' }}>
-      <Label for="default-input">Label</Label>
-      <Input {...args} id="default-input" style={{ width: 280 }} />
-    </div>
-  ),
-};
-
-export const WithIcon = {
-  name: 'With Icon',
-  args: { placeholder: 'Search…' },
-  render: (args) => (
-    <Input {...args} style={{ width: 280 }}>
-      <Icon name="search" slot="icon" />
-    </Input>
-  ),
-};
-
-export const States = {
-  name: 'All Value States',
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      {['None', 'Error', 'Warning', 'Success', 'Information'].map((s) => (
-        <div key={s} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-          <Label>{s}</Label>
-          <Input placeholder={`${s} state`} valueState={s} style={{ width: 280 }} />
-        </div>
-      ))}
-    </div>
-  ),
+  render: (args) => {
+    return (
+      <Input {...args} style={{ width: '400px' }}>
+        <SuggestionItemGroup headerText="A Group">
+          <SuggestionItem text="United States" additionalText={'USA'} />
+          <SuggestionItem text="Bulgaria" />
+        </SuggestionItemGroup>
+        <SuggestionItemGroup headerText="Another Group Items">
+          <SuggestionItem text="Argentina" />
+          <SuggestionItem text="Germany" />
+          <SuggestionItem text="Iceland" />
+          <SuggestionItem text="Moldova" />
+        </SuggestionItemGroup>
+      </Input>
+    );
+  },
 };
