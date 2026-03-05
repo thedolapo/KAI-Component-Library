@@ -111,4 +111,65 @@
   --sapChart_Bad:             var(--kai-chart-semantic-sap-chart-bad);
   --sapChart_Critical:        var(--kai-chart-semantic-sap-chart-critical);
   --sapChart_Neutral:         var(--kai-chart-semantic-sap-chart-neutral);
+
+  /* ── Selection & Active States ────────────────────────────────── */
+  --sapSelectedColor:                      var(--kai-main-sap-brand-color);
+  --sapActiveColor:                        var(--kai-main-sap-highlight-color);
+  --sapHoverColor:                         hsl(256, 87%, 95%);
+  --sapContent_Selected_Background:        var(--kai-list-sap-list-selection-background-color);
+  --sapContent_Selected_TextColor:         var(--kai-main-sap-brand-color);
+  --sapContent_Selected_Foreground_Color:  var(--kai-main-sap-brand-color);
+
+  /* ── Focus Indicators ─────────────────────────────────────────── */
+  --sapContent_FocusColor:          var(--kai-focus-sap-content-focus-color);
+  --sapContent_FocusBorderColor:    var(--kai-focus-sap-content-focus-color);
+  --sapContent_ContrastFocusColor:  var(--kai-focus-sap-content-contrast-focus-color);
+
+  /* ── List & Table States ──────────────────────────────────────── */
+  --sapList_Background:               var(--kai-list-sap-list-background);
+  --sapList_BorderColor:              var(--kai-list-sap-list-border-color);
+  --sapList_TextColor:                var(--kai-list-sap-list-text-color);
+  --sapList_HeaderBackground:         var(--kai-list-sap-list-header-background);
+  --sapList_HeaderBorderColor:        var(--kai-list-sap-list-header-border-color);
+  --sapList_GroupHeaderBackground:    var(--kai-list-sap-list-group-header-background);
+  --sapList_AlternatingBackground:    var(--kai-list-sap-list-alternating-background);
+  --sapList_Hover_Background:         var(--kai-list-sap-list-hover-background);
+  --sapList_HoverSelectColor:         var(--kai-list-sap-list-hover-selection-background);
+  --sapList_Active_Background:        var(--kai-list-sap-list-active-background);
+  --sapList_HighlightColor:           var(--kai-list-sap-list-highlight-color);
+  --sapList_SelectionBackgroundColor: var(--kai-list-sap-list-selection-background-color);
+  --sapList_SelectionBorderColor:     var(--kai-list-sap-list-selection-border-color);
+
+  /* ── Button Token States ──────────────────────────────────────── */
+  --sapButton_TokenBackground:        var(--kai-button-token-sap-button-token-background);
+  --sapButton_Token_BorderColor:      var(--kai-button-token-sap-button-token-border-color);
+  --sapButton_Token_TextColor:        var(--kai-main-sap-brand-color);
+  --sapButton_Token_HoverBackground:  hsl(256, 87%, 95%);
+  --sapButton_Token_ActiveBackground: var(--kai-main-sap-highlight-color);
+
+  /* ── Accent Colours ───────────────────────────────────────────── */
+  --sapAccentColor1:            var(--kai-accent-sap-accent-color1);
+  --sapAccentColor2:            var(--kai-accent-sap-accent-color2);
+  --sapAccentColor3:            var(--kai-accent-sap-accent-color3);
+  --sapAccentColor4:            var(--kai-accent-sap-accent-color4);
+  --sapAccentColor5:            var(--kai-accent-sap-accent-color5);
+  --sapAccentColor6:            var(--kai-accent-sap-accent-color6);
+  --sapAccentColor7:            var(--kai-accent-sap-accent-color7);
+  --sapAccentColor8:            var(--kai-accent-sap-accent-color8);
+  --sapAccentColor9:            var(--kai-accent-sap-accent-color9);
+  --sapAccentColor10:           var(--kai-accent-sap-accent-color10);
+  --sapAccentBackgroundColor1:  var(--kai-accent-sap-accent-background-color1);
+  --sapAccentBackgroundColor2:  var(--kai-accent-sap-accent-background-color2);
+  --sapAccentBackgroundColor3:  var(--kai-accent-sap-accent-background-color3);
+  --sapAccentBackgroundColor4:  var(--kai-accent-sap-accent-background-color4);
+  --sapAccentBackgroundColor5:  var(--kai-accent-sap-accent-background-color5);
+  --sapAccentBackgroundColor6:  var(--kai-accent-sap-accent-background-color6);
+  --sapAccentBackgroundColor7:  var(--kai-accent-sap-accent-background-color7);
+  --sapAccentBackgroundColor8:  var(--kai-accent-sap-accent-background-color8);
+  --sapAccentBackgroundColor9:  var(--kai-accent-sap-accent-background-color9);
+  --sapAccentBackgroundColor10: var(--kai-accent-sap-accent-background-color10);
+
+  /* ── Object / Page Header ─────────────────────────────────────── */
+  --sapObjectHeader_Background:  var(--kai-object-header-sap-object-header-background);
+  --sapObjectHeader_BorderColor: var(--kai-object-header-sap-object-header-border-color);
 }

@@ -13,6 +13,7 @@ const config = {
     // version ships. Track: https://github.com/morgs32/storybook-addon-designs
   ],
   "framework": "@storybook/react-vite",
+  "staticDirs": ["../public"],
 };
 
 export default config;

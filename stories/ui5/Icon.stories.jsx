@@ -18,11 +18,6 @@ const meta = {
     },
     docs: {
       description: {
-        component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/data-display-icon--default)',
-      },
-    },
-    docs: {
-      description: {
         component:
           iconSummaryFormatter(description) +
           '\n__Note:__ This is a UI5 Web Component! [Repository](https://github.com/UI5/webcomponents) | [Documentation](https://ui5.github.io/webcomponents/playground/)',
