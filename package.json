@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ui5/webcomponents-fiori": "~2.19.0",
     "@ui5/webcomponents-react": "^2.19.0",
     "@ui5/webcomponents-react-charts": "^2.19.0",
     "prop-types": "^15.8.1",

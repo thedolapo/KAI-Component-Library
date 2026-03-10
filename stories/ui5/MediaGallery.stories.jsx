@@ -4,6 +4,9 @@ import {
   MediaGalleryItem,
   Toast
 } from '@ui5/webcomponents-react';
+import MediaGalleryLayout from '@ui5/webcomponents-fiori/dist/types/MediaGalleryLayout.js';
+import MediaGalleryMenuHorizontalAlign from '@ui5/webcomponents-fiori/dist/types/MediaGalleryMenuHorizontalAlign.js';
+import MediaGalleryMenuVerticalAlign from '@ui5/webcomponents-fiori/dist/types/MediaGalleryMenuVerticalAlign.js';
 
 const meta = {
   title: 'UI5 Components/Media Gallery', component: MediaGallery,

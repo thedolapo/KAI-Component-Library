@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useReducer } from 'react';
 import {
   DatePicker,
   FilterBar,
@@ -137,7 +137,7 @@ export const WithCustomValidation = {
             valueState: valueStateSaveView,
             valueStateMessage: valueStateSaveView ? (
               <div>Only alphanumeric and space characters allowed!</div>
-            ) : undefined, onInput,
+            ) : undefined, onInput: handleSaveViewInput,
             'data-testid': 'alphanumeric',
           }}
         >
@@ -149,7 +149,7 @@ export const WithCustomValidation = {
           selected={selectedByIndex === 1}
           manageViewsInputProps={{
             valueState: valueStateManageViews,
-            valueStateMessage: valueStateManageViews ? <div>No more than 12 characters allowed!</div> : undefined, onInput,
+            valueStateMessage: valueStateManageViews ? <div>No more than 12 characters allowed!</div> : undefined, onInput: handleManageViewInput,
             'data-testid': '12chars',
           }}
         >
@@ -179,7 +179,7 @@ export const WithFilterBarImplementation = {
     });
 
     const filterReducer = (state, action) => {
-      const { payload, } = action;
+      const { payload, type } = action;
       setCheckIfDirty(true);
       switch (type) {
         case 'selectedCountry':

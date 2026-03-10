@@ -16,11 +16,11 @@ body {
 
 .storybook-button--primary {
   color: white;
-  background-color: #1ea7fd;
+  background-color: var(--kai-button-emphasized-sap-button-emphasized-background);
 }
 
 .storybook-button--primary:hover {
-  background-color: #0c63e4;
+  background-color: var(--kai-main-sap-highlight-color);
 }
 
 .storybook-button--secondary {

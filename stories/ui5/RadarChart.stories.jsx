@@ -27,7 +27,7 @@ const meta = {
       {
         accessor: 'sessions',
         label: 'Active Sessions',
-        formatter: (val) => `${val} sessions`, hideDataLabel,
+        formatter: (val) => `${val} sessions`, hideDataLabel: true,
       },
       {
         accessor: 'volume',
@@ -60,7 +60,7 @@ export const Default = {};
 export const WithCustomColor = {
   args: {
     dimensions: [{ accessor: 'name' }],
-    measures: [{ accessor: 'users', color: 'red' }], dataset,
+    measures: [{ accessor: 'users', color: 'red' }], dataset: complexDataSet,
   },
 };
 

@@ -17,6 +17,7 @@ import {
   Text,
   Title
 } from '@ui5/webcomponents-react';
+import FCLLayout from '@ui5/webcomponents-fiori/dist/types/FCLLayout.js';
 import AvatarSize from '@ui5/webcomponents/dist/types/AvatarSize.js';
 import BarDesign from '@ui5/webcomponents/dist/types/BarDesign.js';
 import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign.js';

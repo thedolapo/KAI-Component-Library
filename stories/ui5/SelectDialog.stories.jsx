@@ -32,10 +32,10 @@ const meta = {
 export default meta;
 
 const listItems = [
-  { img: Laptop1, description: 'LT-10', text: 'Gaming Laptop' },
-  { img: Laptop2, description: 'LT-20', text: 'Business Laptop' },
-  { img: Pc2, description: 'HT-10', text: 'Gaming PC' },
-  { img: Pc1, description: 'HT-20', text: 'Business PC' },
+  { img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/120px-Camponotus_flavomarginatus_ant.jpg', description: 'LT-10', text: 'Gaming Laptop' },
+  { img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/120px-Camponotus_flavomarginatus_ant.jpg', description: 'LT-20', text: 'Business Laptop' },
+  { img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/120px-Camponotus_flavomarginatus_ant.jpg', description: 'HT-10', text: 'Gaming PC' },
+  { img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/120px-Camponotus_flavomarginatus_ant.jpg', description: 'HT-20', text: 'Business PC' },
 ];
 export const Default = {
   render: (args) => {
@@ -78,7 +78,7 @@ export const MultiSelect = {
     // predefined selection
     const selectedProducts = { 'HT-102': true, 'HT-203': true, 'HT-1038': true };
     // number of selected items
-    const [selectedItems, setSelectedItems] = useState>(selectedProducts);
+    const [selectedItems, setSelectedItems] = useState(selectedProducts);
     const selectedItemsBeforeOpen = useRef(selectedItems);
     const [searchVal, setSearchVal] = useState();
     const [products, setProducts] = useState(Object.keys(selectedProducts));

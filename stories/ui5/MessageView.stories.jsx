@@ -19,6 +19,27 @@ import WrappingType from '@ui5/webcomponents/dist/types/WrappingType.js';
 import ValueState from '@ui5/webcomponents-base/dist/types/ValueState.js';
 import arrowLeftIcon from '@ui5/webcomponents-icons/dist/slim-arrow-left.js';
 
+const generateMessageItems = ({ information = 0, warning = 0, success = 0, error = 0 }) => {
+  const items = [];
+  const types = [
+    { count: error, type: ValueState.Negative, label: 'Error' },
+    { count: warning, type: ValueState.Critical, label: 'Warning' },
+    { count: success, type: ValueState.Positive, label: 'Success' },
+    { count: information, type: ValueState.Information, label: 'Information' },
+  ];
+  let key = 0;
+  types.forEach(({ count, type, label }) => {
+    for (let i = 0; i < count; i++) {
+      items.push(
+        <MessageItem key={key++} titleText={`${label} Message ${i + 1}`} type={type} groupName="Group A">
+          {`${label} message description ${i + 1}`}
+        </MessageItem>
+      );
+    }
+  });
+  return items;
+};
+
 const meta = {
   title: 'UI5 Components/Message View', component: MessageView,
   argTypes: {
@@ -32,7 +53,7 @@ const meta = {
     },
   },
   args: {
-    showDetailsPageHeader: true, groupItems,
+    showDetailsPageHeader: true, groupItems: true,
     children: [
       <MessageItem
         key={1}
@@ -196,7 +217,7 @@ export const WithMessageViewButton = {
     const [isOnDetailsPage, setIsOnDetailsPage] = useState(false);
     const [open, setOpen] = useState(false);
     const numberOfItems = {
-      information: 2, warning, success, error,
+      information: 2, warning: 1, success: 1, error: 3,
     };
     return (
       <>

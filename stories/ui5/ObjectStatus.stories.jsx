@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import {
   AnalyticalTable,
   Icon,
@@ -28,7 +28,7 @@ const meta = {
   },
   args: {
     state: ValueState.None,
-    children: 'ObjectStatus', showDefaultIcon,
+    children: 'ObjectStatus', showDefaultIcon: false,
   },
   parameters: {
     design: {
@@ -83,7 +83,7 @@ export const WithCustomIcon = {
 };
 
 export const WithIconOnly = {
-  args: { icon: <Icon name={cancelIcon} mode={IconMode.Decorative} />, children, title: 'Cancel' },
+  args: { icon: <Icon name={cancelIcon} mode={IconMode.Decorative} />, children: '', title: 'Cancel' },
 };
 
 const States = { ...ValueState, ...IndicationColor };

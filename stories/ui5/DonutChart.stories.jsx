@@ -100,7 +100,7 @@ export const HideLabels = {
           return true;
         }
       },
-    }, dataset,
+    }, dataset: simpleDataSetWithSmallValues,
   },
 };
 
@@ -115,7 +115,7 @@ export const WithCustomLegendConfig = {
 export const WithActiveShape = {
   args: {
     chartConfig: {
-      activeSegment: 1, showActiveSegmentDataLabel,
+      activeSegment: 1, showActiveSegmentDataLabel: true,
     },
   },
   render(args) {

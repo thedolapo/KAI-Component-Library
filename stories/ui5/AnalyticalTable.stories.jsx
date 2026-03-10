@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useReducer, useMemo } from 'react';
 import {
   AnalyticalTable,
   AnalyticalTablePopinDisplay,
@@ -29,102 +29,44 @@ import '@ui5/webcomponents-icons/dist/delete.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
 import '@ui5/webcomponents-icons/dist/settings.js';
 
-const kitchenSinkArgs = {
-  data: dataLarge,
-  columns: [
-    {
-      Header: 'Name', width,
-      headerTooltip: 'Full Name', // A more extensive description!
-      accessor: 'name', // String-based value accessors!
-      autoResizable: true, // Double clicking the resize bar auto resizes the column!
+const names = ['Carl', 'Dan', 'Rose', 'Susanne', 'Lisa', 'Tom', 'Anna', 'Mark', 'Julia', 'Mike'];
+const generateData = (count) =>
+  Array.from({ length: count }, (_, i) => ({
+    name: `${names[i % names.length]} ${i + 1}`,
+    age: 20 + (i % 40),
+    friend: {
+      name: `${names[(i + 3) % names.length]} ${i + 2}`,
+      age: 18 + (i % 50),
     },
-    {
-      Header: 'Age',
-      accessor: 'age', width, autoResizable,
-      hAlign: TextAlign.End, disableGroupBy, disableSortBy, disableFilters,
-      className: 'superCustomClass',
-    },
-    {
-      Header: 'Friend Name',
-      accessor: 'friend.name', width, autoResizable,
-    },
-    {
-      Header: () => <span>Friend Age</span>,
-      headerLabel: 'Custom Header Label',
-      accessor: 'friend.age', autoResizable,
-      hAlign: TextAlign.End,
-      filter: (rows, accessor, filterValue) => {
-        if (filterValue === 'all') {
-          return rows;
-        }
-        if (filterValue === 'true') {
-          return rows.filter((row) => row.values[accessor] >= 21);
-        }
-        return rows.filter((row) => row.values[accessor] < 21);
+    status: i % 3 === 0 ? 'Success' : i % 3 === 1 ? 'Warning' : 'Error',
+  }));
+
+const dataLarge = generateData(200);
+
+const dataTree = [
+  {
+    name: 'Root 1', age: 40, friend: { name: 'Friend A', age: 30 }, status: 'Success',
+    subRows: [
+      { name: 'Child 1.1', age: 20, friend: { name: 'Friend B', age: 25 }, status: 'Warning' },
+      {
+        name: 'Child 1.2', age: 22, friend: { name: 'Friend C', age: 28 }, status: 'Error',
+        subRows: [
+          { name: 'Grandchild 1.2.1', age: 10, friend: { name: 'Friend D', age: 12 }, status: 'Success' },
+        ],
       },
-      Filter: ({ column, popoverRef }) => {
-        const handleChange = (event) => {
-          // set filter
-          column.setFilter(event.detail.selectedOption.getAttribute('value'));
-          // close popover
-          popoverRef.current.open = false;
-        };
-        return (
-          <Select onChange={handleChange} style={{ width: '100%' }}>
-            <Option value="all">Show All</Option>
-            <Option value="true">Can Drink</Option>
-            <Option value="false">Can't Drink</Option>
-          </Select>
-        );
-      },
-    },
-    {
-      Header: 'Status',
-      id: 'os',
-      Cell: (instance) => {
-        const state = instance.row.index % 2 === 0 ? 'Positive' : 'Negative';
-        return <ObjectStatus state={state}>{state}</ObjectStatus>;
-      },
-    },
-    {
-      id: 'actions',
-      Header: 'Actions',
-      accessor: '.', width, minWidth, disableResizing, disableGroupBy, disableFilters, disableSortBy,
-      Cell: (instance) => {
-        const { _cell, _row, webComponentsReactProperties } = instance;
-        const { loading, showOverlay } = webComponentsReactProperties;
-        // disable buttons if overlay is active or the table is loading, to prevent focus
-        const disabled = loading || showOverlay;
-        // console.log('This is your row data', row.original);
-        return (
-          <FlexBox>
-            <Button icon="edit" disabled={disabled} accessibleName="Edit" />
-            <Button icon="delete" disabled={disabled} accessibleName="Delete" />
-          </FlexBox>
-        );
-      },
-      cellLabel: ({ cell }) => {
-        return `${cell.cellLabel} press TAB to focus active elements inside this cell`;
-      },
-    },
-  ], filterable, alternateRowColor,
-  columnOrder: ['friend.name', 'friend.age', 'name'],
-  extension: (
-    <FlexBox justifyContent={FlexBoxJustifyContent.End}>
-      <Button icon="edit" accessibleName="edit" design="Transparent" />
-    </FlexBox>
-  ), groupable,
-  header: 'Table Title', headerRowHeight, infiniteScroll, infiniteScrollThreshold, isTreeTable, loadingDelay, minRows,
-  noDataText: "Custom 'noDataText' message", overscanCountHorizontal,
-  scaleWidthMode: AnalyticalTableScaleWidthMode.Smart,
-  selectedRowIds: { 3: true },
-  selectionBehavior: AnalyticalTableSelectionBehavior.Row,
-  selectionMode: AnalyticalTableSelectionMode.Single, sortable,
-  subRowsKey: 'subRows',
-  visibleRowCountMode: AnalyticalTableVisibleRowCountMode.Interactive, visibleRows, withRowHighlight,
-  // sb actions has a huge impact on performance here.
-  onTableScroll: undefined,
-};
+    ],
+  },
+  {
+    name: 'Root 2', age: 45, friend: { name: 'Friend E', age: 35 }, status: 'Warning',
+    subRows: [
+      { name: 'Child 2.1', age: 25, friend: { name: 'Friend F', age: 30 }, status: 'Success' },
+    ],
+  },
+  {
+    name: 'Root 3', age: 50, friend: { name: 'Friend G', age: 40 }, status: 'Error',
+    subRows: [],
+  },
+];
 
 const meta = {
   title: 'UI5 Components/Analytical Table', component: AnalyticalTable,
@@ -138,51 +80,30 @@ const meta = {
         component: '[→ UI5 React docs](https://ui5.github.io/webcomponents-react/v2/?path=/story/data-display-analyticaltable--default)',
       },
     },
-
     chromatic: { disableSnapshot: true },
   },
   args: {
     data: dataLarge,
     columns: [
-      {
-        Header: 'Name',
-        accessor: 'name',
-      },
-      {
-        Header: 'Age',
-        accessor: 'age',
-        hAlign: 'End',
-      },
-      {
-        Header: 'Friend Name',
-        accessor: 'friend.name',
-      },
-      {
-        Header: 'Friend Age',
-        accessor: 'friend.age',
-        hAlign: 'End',
-      },
+      { Header: 'Name', accessor: 'name' },
+      { Header: 'Age', accessor: 'age', hAlign: 'End' },
+      { Header: 'Friend Name', accessor: 'friend.name' },
+      { Header: 'Friend Age', accessor: 'friend.age', hAlign: 'End' },
     ],
     highlightField: 'status',
-    subRowsKey: 'subRows', visibleRows,
-    // sb actions has a huge impact on performance here.
+    subRowsKey: 'subRows',
+    visibleRows: 15,
     onTableScroll: undefined,
   },
   argTypes: {
     data: { control: { disable: true } },
-    columns: {
-      control: { disable: true },
-      description:
-        'Defines the columns array where you can define the configuration for each column.<br />Please refer to the [AnalyticalTableColumnDefinition interface](#column-properties) for a full list of options.<br /><br /><b>Must be memoized!</b>',
-    },
+    columns: { control: { disable: true } },
     tableHooks: { control: { disable: true } },
     NoDataComponent: { control: { disable: true } },
     extension: { control: { disable: true } },
     tableInstance: { control: { disable: true } },
     header: { control: { disable: true } },
-    highlightField: {
-      control: { type: 'text' },
-    },
+    highlightField: { control: { type: 'text' } },
     groupBy: { control: { disable: true } },
     columnOrder: { control: { disable: true } },
   },
@@ -203,7 +124,8 @@ export const Default = {};
 
 export const TreeTable = {
   args: {
-    data: dataTree, isTreeTable,
+    data: dataTree,
+    isTreeTable: true,
   },
   render(args, context) {
     const { viewMode } = context;
@@ -213,7 +135,9 @@ export const TreeTable = {
 
 export const InfiniteScrolling = {
   args: {
-    infiniteScroll: true, infiniteScrollThreshold, loadingDelay,
+    infiniteScroll: true,
+    infiniteScrollThreshold: 20,
+    loadingDelay: 1000,
     header: 'Scroll to load more data',
     reactTableOptions: { autoResetSelectedRows: false },
   },
@@ -221,8 +145,7 @@ export const InfiniteScrolling = {
     const [data, setData] = useState(args.data.slice(0, 50));
     const [loading, setLoading] = useState(false);
     const offset = useRef(50);
-    const onLoadMore = (e) => {
-      args.onLoadMore(e);
+    const onLoadMore = () => {
       setLoading(true);
     };
     useEffect(() => {
@@ -305,11 +228,9 @@ export const DynamicRowCount = {
   argTypes: {
     containerHeight: {
       options: [250, 500, 750, 1000],
-      control: {
-        type: 'radio',
-      },
+      control: { type: 'radio' },
       description:
-        'Select an option to change the height of the surrounding container of the table (in `px`). <br /> __Note__: This is not an actual prop of the table.',
+        'Select an option to change the height of the surrounding container of the table (in `px`).',
     },
   },
   render: (args, context) => {
@@ -335,138 +256,18 @@ export const DynamicRowCount = {
               {...args}
               data={data}
               visibleRowCountMode={args.visibleRowCountMode}
-              header={`Current height: ${args.containerHeight}px - Change the height in the table above`}
+              header={`Current height: ${args.containerHeight}px`}
             />
           ) : (
             <ToggleableTable
               {...args}
               data={data}
               visibleRowCountMode={args.visibleRowCountMode}
-              header={`Current height: ${args.containerHeight}px - Change the height in the table above`}
+              header={`Current height: ${args.containerHeight}px`}
             />
           )}
         </div>
       </>
-    );
-  },
-};
-
-export const ResponsiveColumns = {
-  args: {
-    visibleRowCountMode: AnalyticalTableVisibleRowCountMode.Fixed,
-    containerWidth: 'auto', data, adjustTableHeightOnPopIn,
-    columns: [
-      {
-        Header: 'Name',
-        accessor: 'name',
-      },
-      {
-        disableSortBy: true, responsivePopIn, responsiveMinWidth,
-        PopInHeader: 'Custom Header Text (age)',
-        Header: 'Age',
-        accessor: 'age',
-      },
-      {
-        disableSortBy: true, responsivePopIn, responsiveMinWidth,
-        Header: 'Friend Name',
-        PopInHeader: (instance) => {
-          return <div style={{ color: 'red' }}>Friend Name (custom)</div>;
-        },
-        accessor: 'friend.name',
-      },
-      { disableSortBy: true, responsiveMinWidth, Header: 'Friend Age', accessor: 'friend.age' },
-      {
-        disableSortBy: true, responsivePopIn, responsiveMinWidth,
-        id: 'actions',
-        Header: 'Actions', width, disableResizing,
-        Cell: (instance) => {
-          return (
-            <FlexBox>
-              <Button icon="edit" />
-              <Button icon="delete" />
-            </FlexBox>
-          );
-        },
-      },
-      {
-        id: 'popinDisplay',
-        Header: 'PopinDisplay Modes', responsivePopIn, responsiveMinWidth,
-        popinDisplay: AnalyticalTablePopinDisplay.Block,
-        Cell: () => {
-          return <Text maxLines={1}>Using popinDisplay: 'Block'</Text>;
-        },
-      },
-    ],
-  },
-  argTypes: {
-    containerWidth: {
-      options: [400, 600, 800, 'auto'],
-      control: {
-        type: 'radio',
-      },
-      description:
-        'Select an option to change the width of the surrounding container of the table (in `px`). <br /> __Note__: This is not a prop of the table.',
-    },
-  },
-  render: (args, context) => {
-    const [columns, setColumns] = useState(args.columns);
-    const [popinDisplay, setPopinDisplay] = useState(
-      AnalyticalTablePopinDisplay.Block,
-    );
-    const { containerWidth: _0, ...tableArgs } = args;
-
-    useEffect(() => {
-      setColumns((prev) => {
-        return [
-          ...prev.slice(0, -1),
-          {
-            id: 'popinDisplay',
-            Header: 'PopinDisplay Modes', responsivePopIn, responsiveMinWidth, popinDisplay,
-            Cell: () => {
-              return <Text maxLines={1}>Using popinDisplay: {popinDisplay}</Text>;
-            },
-          },
-        ];
-      });
-    }, [popinDisplay]);
-
-    return (
-      <div
-        style={{
-          width: args.containerWidth && typeof args.containerWidth === 'number' ? `${args.containerWidth}px` : 'auto',
-        }}
-      >
-        <Label showColon style={{ marginInlineEnd: '0.5rem' }}>
-          Change <code>popinDisplay</code> of last column
-        </Label>
-        <Select
-          onChange={(e) => {
-            setPopinDisplay(e.detail.selectedOption.textContent);
-          }}
-        >
-          <Option selected={popinDisplay === AnalyticalTablePopinDisplay.Block}>Block</Option>
-          <Option selected={popinDisplay === AnalyticalTablePopinDisplay.Inline}>Inline</Option>
-          <Option selected={popinDisplay === AnalyticalTablePopinDisplay.WithoutHeader}>WithoutHeader</Option>
-        </Select>
-        {context.viewMode === 'story' ? (
-          <AnalyticalTable
-            {...tableArgs}
-            columns={columns}
-            adjustTableHeightOnPopIn={args.adjustTableHeightOnPopIn}
-            header={`Current width: ${args.containerWidth}`}
-          />
-        ) : (
-          <>
-            <hr />
-            <ToggleableTable
-              {...tableArgs}
-              columns={columns}
-              adjustTableHeightOnPopIn={args.adjustTableHeightOnPopIn}
-              header={`Current width: ${args.containerWidth}`}
-            />
-          </>
-        )}
-      </div>
     );
   },
 };
@@ -492,57 +293,6 @@ export const NavigationIndicator = {
   },
 };
 
-export const CustomFilter = {
-  args: {
-    data: dataLarge, filterable,
-  },
-  render: (args, context) => {
-    const filterFn = useCallback((rows, accessor, filterValue) => {
-      if (filterValue.length > 0) {
-        return rows.filter((row) => {
-          const rowVal = row.values[accessor];
-          return !!filterValue.some((item) => rowVal.includes(item));
-        });
-      }
-      return rows;
-    }, []);
-    const columns = useMemo(
-      () => [
-        {
-          Header: 'Custom Column Filter',
-          accessor: 'name', filter,
-          Filter: ({ column }) => {
-            const firstNames = ['Carl', 'Dan', 'Rose', 'Susanne'];
-            return (
-              <MultiComboBox
-                placeholder="Filter Names"
-                onSelectionChange={(e) => {
-                  column.setFilter(e.detail.items.map((item) => item.getAttribute('text')));
-                }}
-              >
-                {firstNames.map((item) => {
-                  const isSelected = column?.filterValue?.some((filterVal) => filterVal.includes(item));
-                  return <MultiComboBoxItem text={item} key={item} selected={isSelected} />;
-                })}
-              </MultiComboBox>
-            );
-          },
-        },
-        {
-          Header: 'Age',
-          accessor: 'age',
-        },
-      ],
-      [],
-    );
-    return context.viewMode === 'story' ? (
-      <AnalyticalTable {...args} columns={columns} />
-    ) : (
-      <ToggleableTable {...args} columns={columns} />
-    );
-  },
-};
-
 export const NoData = {
   render(args, context) {
     const [selected, setSelected] = useState('noData');
@@ -562,16 +312,17 @@ export const NoData = {
         ? undefined
         : (props) => {
             return filtered ? (
-              <IllustratedMessage role={props.accessibleRole} name={NoFilterResults} />
+              <IllustratedMessage role={props.accessibleRole} name="NoFilterResults" />
             ) : (
-              <IllustratedMessage role={props.accessibleRole} name={NoDataIllustration} />
+              <IllustratedMessage role={props.accessibleRole} name="NoData" />
             );
           };
 
     const tableProps = {
       ...args,
       data: selected === 'data' ? args.data : [],
-      globalFilterValue: filtered ? 'Non-existing text' : undefined, NoDataComponent,
+      globalFilterValue: filtered ? 'Non-existing text' : undefined,
+      NoDataComponent: NoDataComponent,
     };
 
     const isAutoRowCount = args.visibleRowCountMode?.startsWith('Auto');
@@ -607,46 +358,5 @@ export const NoData = {
         )}
       </>
     );
-  },
-};
-
-export const KitchenSink = {
-  args: kitchenSinkArgs,
-  render(args, context) {
-    return context.viewMode === 'story' ? <AnalyticalTable {...args} /> : <ToggleableTable {...args} />;
-  },
-};
-
-// ===================== Not displayed in sidebar & tags popover =====================
-
-export const EllipsisExamples = {
-  args: {
-    data: dataLarge.slice(0, 5),
-    columns: [
-      {
-        Header: 'Plain String (Automatic Ellipsis)',
-        accessor: 'name', width,
-        Cell: ({ value }) => value,
-      },
-      {
-        Header: 'With textEllipsis Class',
-        accessor: 'friend.name', width,
-        Cell: ({ value, webComponentsReactProperties }) => (
-          <div className={webComponentsReactProperties.classes.textEllipsis} title={value}>
-            {value}
-          </div>
-        ),
-      },
-      {
-        Header: 'With Text Component',
-        id: 'description', width,
-        Cell: () => (
-          <Text maxLines={1} title="This is a very long text that demonstrates how the Text component handles ellipsis">
-            This is a very long text that demonstrates how the Text component handles ellipsis
-          </Text>
-        ),
-      },
-    ], visibleRows,
-    style: { width: 'min(100%, 300px)' },
   },
 };

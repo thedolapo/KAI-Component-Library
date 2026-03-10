@@ -38,7 +38,7 @@ const meta = {
       {
         accessor: 'sessions',
         label: 'Active Sessions',
-        formatter: (val) => `${val} sessions`, hideDataLabel,
+        formatter: (val) => `${val} sessions`, hideDataLabel: true,
       },
       {
         accessor: 'volume',
@@ -65,14 +65,14 @@ export const Default = {};
 
 export const WithCustomColor = {
   args: {
-    measures: [{ accessor: 'users', color: 'red' }], dataset,
+    measures: [{ accessor: 'users', color: 'red' }], dataset: complexDataSet,
   },
 };
 
 export const WithSecondaryDimension = {
   args: {
     dimensions: [{ accessor: 'name' }, { accessor: 'dimension' }],
-    measures: [{ accessor: 'users', color: 'red' }], dataset,
+    measures: [{ accessor: 'users', color: 'red' }], dataset: complexDataSet,
   },
 };
 
@@ -138,7 +138,7 @@ export const WithReferenceLine = {
     chartConfig: {
       referenceLine: {
         color: 'red',
-        label: 'MAX', value,
+        label: 'MAX', value: 650,
       },
     },
   },

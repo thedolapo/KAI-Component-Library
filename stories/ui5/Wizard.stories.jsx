@@ -44,8 +44,8 @@ export default meta;
 export const Default = {
   render(args) {
     const [selected, setSelected] = useState('1');
-    const [disabled, setDisabled] = useState>({ '2': true, '3': true, '4': true });
-    const [hidden, setHidden] = useState>({ step3Btn: true, finalizeBtn: true });
+    const [disabled, setDisabled] = useState({ '2': true, '3': true, '4': true });
+    const [hidden, setHidden] = useState({ step3Btn: true, finalizeBtn: true });
     const goToStep2 = () => {
       setDisabled((prev) => {
         const { '2': _omit, ...rest } = prev;

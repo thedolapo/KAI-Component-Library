@@ -47,7 +47,7 @@ const meta = {
     accessibilityAttributes: { table: { category: 'Accessibility props' } },
   },
   args: {
-    mode: ObjectPageMode.Default, imageShapeCircle, image,
+    mode: ObjectPageMode.Default, imageShapeCircle: true, image: 'https://raw.githubusercontent.com/SAP/ui5-webcomponents-react/main/assets/Person.png',
     style: { height: '700px', maxHeight: '90vh' },
     onToggleHeaderArea: fn(),
     footerArea: (
@@ -316,7 +316,7 @@ export const WithIllustratedMessage = {
         titleArea={args.titleArea}
         headerArea={args.headerArea}
         imageShapeCircle
-        placeholder={<IllustratedMessage name={IllustrationMessageType.UnableToLoad} />}
+        placeholder={<IllustratedMessage name="UnableToLoad" />}
       />
     );
   },
@@ -536,7 +536,7 @@ export const SingleSection = {
   },
 };
 
-export const LegacyToolbarSupport = {
+export const ToolbarSupport = {
   render(args) {
     const objectPageRef = useRef(null);
     const handleToolbarClick = (e) => {
@@ -554,25 +554,25 @@ export const LegacyToolbarSupport = {
             header="Legacy Toolbar Support"
             subHeader="actions and navigation actions are rendered inside the legacy Toolbar component"
             actionsBar={
-              <LegacyToolbar
+              <Toolbar
                 design="Transparent"
                 toolbarStyle="Clear"
                 onClick={handleToolbarClick}
                 data-in-object-page-title
               >
-                <LegacyToolbarSpacer />
+                <ToolbarSpacer />
                 <Button design={ButtonDesign.Emphasized}>Primary Action</Button>
                 <Button design={ButtonDesign.Transparent}>Action</Button>
-              </LegacyToolbar>
+              </Toolbar>
             }
             navigationBar={
-              <LegacyToolbar
+              <Toolbar
                 design="Transparent"
                 toolbarStyle="Clear"
                 onClick={handleToolbarClick}
                 data-in-object-page-title
               >
-                <LegacyToolbarSpacer />
+                <ToolbarSpacer />
                 <Button
                   icon={shareIcon}
                   design={ButtonDesign.Transparent}
@@ -585,7 +585,7 @@ export const LegacyToolbarSupport = {
                   tooltip="Navigation Action"
                   accessibleName="Example Navigation Action 2"
                 />
-              </LegacyToolbar>
+              </Toolbar>
             }
           />
         }

@@ -29,7 +29,7 @@ const meta = {
   args: {
     horizontalAlign: PopoverHorizontalAlign.Center,
     placement: PopoverPlacement.End,
-    verticalAlign: PopoverVerticalAlign.Center, open,
+    verticalAlign: PopoverVerticalAlign.Center, open: false,
   },
   parameters: {
     design: {

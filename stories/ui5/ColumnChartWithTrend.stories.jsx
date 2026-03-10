@@ -11,7 +11,7 @@ import {
 const meta = {
   title: 'UI5 Components/Charts/Column Chart With Trend', component: ColumnChartWithTrend,
   args: {
-    style: { height: '400px' }, dataset,
+    style: { height: '400px' }, dataset: complexDataSet,
     dimensions: [
       {
         accessor: 'name',

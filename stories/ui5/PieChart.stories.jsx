@@ -19,7 +19,7 @@ const meta = {
     },
     measure: {
       accessor: 'users',
-    }, dataset,
+    }, dataset: simpleDataSet,
   },
   argTypes: {
     dataset: {
@@ -65,7 +65,7 @@ export const WithFormatter = {
       formatter: (d) => (d > 200 ? 'over 200' : 'lower'),
     },
     chartConfig: {
-      activeSegment: 1, showActiveSegmentDataLabel,
+      activeSegment: 1, showActiveSegmentDataLabel: true,
     },
   },
   render(args) {
@@ -84,7 +84,7 @@ export const WithFormatter = {
 export const WithActiveShape = {
   args: {
     chartConfig: {
-      activeSegment: 1, showActiveSegmentDataLabel,
+      activeSegment: 1, showActiveSegmentDataLabel: true,
     },
   },
   render(args) {
@@ -113,7 +113,7 @@ export const HideLabels = {
           return true;
         }
       },
-    }, dataset,
+    }, dataset: simpleDataSet,
   },
 };
 

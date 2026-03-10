@@ -26,7 +26,16 @@ import declineIcon from '@ui5/webcomponents-icons/dist/decline.js';
 import exitFSIcon from '@ui5/webcomponents-icons/dist/exit-full-screen.js';
 import fullscreenIcon from '@ui5/webcomponents-icons/dist/full-screen.js';
 import { ThemingParameters } from '@ui5/webcomponents-react-base';
-import { clsx } from 'clsx';
+const useGetHeaderHeight = (ref) => {
+  const [headerHeight, setHeaderHeight] = useState(0);
+  useEffect(() => {
+    if (ref.current) {
+      const header = ref.current.shadowRoot?.querySelector('[part="header-content"]');
+      setHeaderHeight(header?.getBoundingClientRect()?.height ?? 0);
+    }
+  }, [ref]);
+  return headerHeight;
+};
 
 const meta = {
   title: 'UI5 Components/Dynamic Page', component: DynamicPage,
@@ -142,7 +151,14 @@ export const Default = {
   render(args) {
     return (
       <DynamicPage {...args}>
-        <ProductsTable />
+        <div style={{ padding: '1rem' }}>
+          <Title level="H3">Products</Title>
+          <div style={{ marginTop: '1rem', display: 'grid', gap: '0.5rem' }}>
+            {['Notebook Basic 15', 'Notebook Basic 17', 'Notebook Professional 15'].map((item, i) => (
+              <div key={i} style={{ padding: '0.75rem', border: '1px solid #e5e5e5', borderRadius: '4px' }}>{item}</div>
+            ))}
+          </div>
+        </div>
       </DynamicPage>
     );
   },
@@ -154,7 +170,7 @@ export const StickyContentHeaders = {
     const headerHeight = useGetHeaderHeight(dynamicPageRef);
 
     return (
-      <DynamicPage {...args} ref={dynamicPageRef} className={clsx(args.className, 'dynamicPageStickyContent')}>
+      <DynamicPage {...args} ref={dynamicPageRef} className={[args.className, 'dynamicPageStickyContent'].filter(Boolean).join(' ')}>
         <>
           <div
             style={{

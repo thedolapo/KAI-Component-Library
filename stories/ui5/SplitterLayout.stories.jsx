@@ -9,6 +9,13 @@ import {
   SplitterLayout,
   Text
 } from '@ui5/webcomponents-react';
+
+const SplitterElementContent = ({ text, background }) => (
+  <div style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background }}>
+    <span>{text}</span>
+  </div>
+);
+
 const isChromatic = false;
 
 const meta = {

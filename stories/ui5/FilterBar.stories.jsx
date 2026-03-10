@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useReducer, useId } from 'react';
 import {
   ComboBox,
   ComboBoxItem,
@@ -461,7 +461,7 @@ export const InDynamicPage = {
 export const WithReordering = {
   render(args) {
     const uniqueId = useId();
-    const [visibleChildrenByKey, setVisibleChildrenByKey] = useState>({
+    const [visibleChildrenByKey, setVisibleChildrenByKey] = useState({
       '0': true,
       '1': true,
       '2': true,

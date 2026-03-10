@@ -59,7 +59,7 @@ export const WithCustomElements = {
           <>
             <Input placeholder="Search" />
             <Link style={{ marginLeft: '6px' }} href="https://github.com/UI5/webcomponents-react" target="_blank">
-              <GitHubLogo />
+              GitHub
             </Link>
           </>
         }

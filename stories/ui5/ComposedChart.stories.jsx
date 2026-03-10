@@ -25,7 +25,7 @@ const meta = {
     dimensions: [
       {
         accessor: 'name',
-        formatter: (d) => `${d} 2019`, interval,
+        formatter: (d) => `${d} 2019`, interval: 0,
       },
     ],
     measures: [
@@ -108,16 +108,16 @@ export const WithFormatter = {
         formatter: (element) => `${element / 10}`,
         type: 'bar',
         label: 'number of users',
-        stackId: 'A', width,
+        stackId: 'A', width: 20,
       },
       {
         accessor: 'sessions',
         type: 'bar',
-        stackId: 'A', width,
+        stackId: 'A', width: 20,
       },
       {
         accessor: 'volume',
-        type: 'line', width,
+        type: 'line', width: 2,
       },
     ],
   },
@@ -129,13 +129,13 @@ export const WithReferenceLine = {
       zoomingTool: true,
       referenceLine: {
         color: 'red',
-        label: 'MAX', value,
+        label: 'MAX', value: 650,
       },
-    }, dataset,
+    }, dataset: complexDataSet,
     measures: [
       {
         accessor: 'users',
-        type: 'bar', width,
+        type: 'bar', width: 20,
       },
       {
         accessor: 'sessions',
@@ -154,7 +154,7 @@ export const WithHighlightedMeasures = {
     dimensions: [
       {
         accessor: 'name',
-        formatter: (d) => `${d} 2019`, interval,
+        formatter: (d) => `${d} 2019`, interval: 0,
       },
     ],
     measures: [

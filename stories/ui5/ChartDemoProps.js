@@ -4,6 +4,8 @@
  * Apache License 2.0 — https://github.com/SAP/ui5-webcomponents-react/blob/main/LICENSE.txt
  */
 
+import { ThemingParameters } from '@ui5/webcomponents-react-base';
+
 export const legendConfig = {
   chartConfig: {
     legendConfig: {
@@ -204,7 +206,7 @@ export const scatterColorDataSet = [
   },
   {
     label: 'EMEA',
-    color: 'blue',
+    color: ThemingParameters.sapChart_OrderedColor_1,
     data: [
       { users: 100, sessions: 300, volume: 756 },
       { users: 230, sessions: 330, volume: 880 },

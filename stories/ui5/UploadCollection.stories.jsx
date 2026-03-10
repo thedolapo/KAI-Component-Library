@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, cloneElement } from 'react';
 import {
   Button,
   FlexBox,
@@ -9,6 +9,7 @@ import {
   UploadCollection,
   UploadCollectionItem
 } from '@ui5/webcomponents-react';
+import UploadState from '@ui5/webcomponents-fiori/dist/types/UploadState.js';
 import ListSelectionMode from '@ui5/webcomponents/dist/types/ListSelectionMode.js';
 import documentIcon from '@ui5/webcomponents-icons/dist/document.js';
 

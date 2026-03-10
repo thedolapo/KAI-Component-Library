@@ -17,7 +17,7 @@ const meta = {
     dimensions: [
       {
         accessor: 'name',
-        formatter: (d) => `${d} 2019`, interval,
+        formatter: (d) => `${d} 2019`, interval: 0,
       },
     ],
     measures: [
@@ -30,13 +30,13 @@ const meta = {
       {
         accessor: 'sessions',
         label: 'Active Sessions',
-        formatter: (val) => `${val} sessions`, hideDataLabel,
+        formatter: (val) => `${val} sessions`, hideDataLabel: true,
       },
       {
         accessor: 'volume',
         label: 'Vol.',
       },
-    ], dataset,
+    ], dataset: simpleDataSet,
   },
   argTypes: {
     dataset: {
@@ -63,14 +63,14 @@ export const Default = {};
 export const WithCustomColor = {
   args: {
     dimensions: [{ accessor: 'name' }],
-    measures: [{ accessor: 'users', color: 'red' }], dataset,
+    measures: [{ accessor: 'users', color: 'red' }], dataset: complexDataSet,
   },
 };
 
 export const WithSecondaryDimension = {
   args: {
     dimensions: [{ accessor: 'name' }, { accessor: 'dimension' }],
-    measures: [{ accessor: 'users', color: 'red' }], dataset,
+    measures: [{ accessor: 'users', color: 'red' }], dataset: complexDataSet,
   },
 };
 
@@ -122,7 +122,7 @@ export const WithReferenceLine = {
     chartConfig: {
       referenceLine: {
         color: 'red',
-        label: 'MAX', value,
+        label: 'MAX', value: 650,
       },
     },
     measures: [
@@ -135,7 +135,7 @@ export const WithReferenceLine = {
       {
         accessor: 'volume',
       },
-    ], dataset,
+    ], dataset: simpleDataSet,
   },
 };
 
@@ -155,7 +155,7 @@ export const WithLinearGradient = {
     dimensions: [{ accessor: 'name' }],
     measures: [
       {
-        accessor: 'users', width,
+        accessor: 'users', width: 2,
         color: 'url(#colorUsers)',
       },
     ],
